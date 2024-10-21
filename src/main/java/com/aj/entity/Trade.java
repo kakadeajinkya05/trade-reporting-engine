@@ -1,15 +1,11 @@
 package com.aj.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class Trade {
 
@@ -23,7 +19,26 @@ public class Trade {
     private double pricePerUnit;
 
     public double getUsdAmount() {
-        return pricePerUnit * units * agreedFx;
+        double result = 1;
+
+        if (units == 0) {
+            return 0.0;
+        } else {
+            result *= units;
+        }
+
+        if (pricePerUnit != 0) {
+            result *= pricePerUnit;
+        } else {
+            result *= pricePerUnit;
+            return result;
+        }
+
+        if (agreedFx != 0) {
+            result *= agreedFx;
+        }
+
+        return result;
     }
 
 }

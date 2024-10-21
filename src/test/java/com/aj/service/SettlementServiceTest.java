@@ -87,6 +87,26 @@ class SettlementServiceTest {
 
     }
 
+    @Test
+    void shouldThrowAnExceptionForNullSettlementDate() {
+
+        Assertions.assertThrows(RuntimeException.class, () -> settlementService.adjustSettlementDate(null, CurrencyType.AED));
+    }
+
+    @Test
+    void shouldThrowAnExceptionForNullCurrencyType() {
+        LocalDate settlementDate = getParsedDate("17 Oct 2024");
+
+        Assertions.assertThrows(RuntimeException.class, () -> settlementService.adjustSettlementDate(settlementDate, null));
+    }
+
+    @Test
+    void shouldThrowAnExceptionForNullSettlementDateAndCurrencyType() {
+
+        Assertions.assertThrows(RuntimeException.class, () -> settlementService.adjustSettlementDate(null, null));
+    }
+
+
     private LocalDate getParsedDate(String date) {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("dd MMM yyyy"));
     }
